@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Checkout</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+     <style>
+            .address-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .address-type {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .address-text {
+            color: #666;
+            line-height: 1.6;
+        }
+        .profile-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+        </style>
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="{% static 'store/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloader -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="{% url 'store' %}"><img src="{% static 'store/img/logo.png' %}" alt="Logo"></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a href="{% url 'store' %}">Home</a></li>
+                            <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                            <li>
+                                <a href="{%url 'store' %}">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
+                                    <li><a href="{% url 'shop-details' %}">Shop Details</a></li>
+                                    <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                                    <li><a href="{% url 'checkout' %}">Check Out</a></li>
+                                    <li><a href="{% url 'blog-details' %}">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3 text-right">
+                    <div class="header__nav__option">
+                        <!-- <a href="{%url 'store' %}" class="search-switch"><img src="{% static 'store/img/icon/search.png' %}" alt=""></a> -->
+                        <a href="{%url 'wish' %}"><img src="{% static 'store/img/icon/heart.png' %}" alt=""></a>
+                        <a href="{%url 'cart' %}"><img src="{% static 'store/img/icon/cart.png' %}" alt=""> <span>0</span></a>
+                        <a href="{% url 'profile' %}"><div class="price">{{ user.username }}</div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="breadcrumb__text">
+                <h4>Check Out</h4>
+                <div class="breadcrumb__links">
+                    <a href="{% url 'store' %}">Home</a>
+                    <a href="{% url 'shop' %}">Shop</a>
+                    <span>Check Out</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                    <div class="row">
+                        <!-- Billing Details -->
+                        <div class="col-lg-8 col-md-6">
+                            <!-- <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="{%url 'store' %}">Click here</a> to enter your code</h6>
+                            <h6 class="checkout__title">Billing Details</h6>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>First Name <span>*</span></p>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Last Name <span>*</span></p>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Country <span>*</span></p>
+                                <input type="text">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Address <span>*</span></p>
+                                <input type="text" placeholder="Street Address" class="checkout__input__add">
+                                <input type="text" placeholder="Apartment, suite, unit etc (optional)">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Town/City <span>*</span></p>
+                                <input type="text">
+                            </div>
+                            <div class="checkout__input">
+                                <p>State/Province <span>*</span></p>
+                                <input type="text">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Postcode / ZIP <span>*</span></p>
+                                <input type="text">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone <span>*</span></p>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email <span>*</span></p>
+                                        <input type="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="acc">
+                                    Create an account?
+                                    <input type="checkbox" id="acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <p>Enter a password to create an account. Returning customers can login above.</p>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Account Password <span>*</span></p>
+                                <input type="password">
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="diff-acc">
+                                    Note about your order
+                                    <input type="checkbox" id="diff-acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Order Notes <span>*</span></p>
+                                <input type="text" placeholder="Notes about your order, e.g. special notes for delivery">
+                            </div>
+                        </div> -->
+
+                        <!-- Order Summary -->
+                        <div class="col-lg-4 col-md-6" style=" left: 175px; justify-items: center; max-width: 60%;">
+                            <div class="checkout__order" style="width: 500px;">
+                                <h4 class="order__title">Your Order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    {% for product in cartitem %}
+                                    {% if product.quantity > 1 %}
+                                        <li>{{ product.product.title }} 
+                                            <span style=" left: -475px;position: relative;"> x {{ product.quantity }}</span>
+                                            <span style="right: -20px; position: relative;">{{ product.product.price }}</span></li>
+                                            {% else %}
+                                            <li>{{ product.product.title }} 
+                                                <span>{{ product.product.price }}</span></li>
+                                                {% endif %}
+                                                {% endfor %}
+                                    <!-- <li>02. German chocolate <span>$170.00</span></li>
+                                    <li>03. Sweet autumn <span>$170.00</span></li>
+                                    <li>04. Gluten-free mini dozen <span>$110.00</span></li> -->
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    <li>Subtotal <span>{{ total }}</span></li>
+                                    <li>GST <span>18%</span></li>
+                                    <li>Total <span>$750.99</span></li>
+                                </ul>
+
+                                
+                                <!-- <div class="checkout__input__checkbox">
+                                    <label for="payment">
+                                        Check Payment
+                                        <input type="checkbox" id="payment">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="paypal">
+                                        PayPal
+                                        <input type="checkbox" id="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div> -->
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-section">
+                            <h2 class="section-title">Saved Addresses</h2>
+                            {% for addres in address.address %}
+                            {% if address %}
+                            <div class="address-card">
+                                <div class="address-type">{{addres.title}}</div>
+                                <div class="address-text">
+                                    {{ addres.get_address }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            <a href="{% url 'add-address' %}"><button type="submit" class="site-btn">ADD Address</button></a>
+                        </div>  
+            </div>
+        </div>
+
+    </section>
+    <!-- Checkout Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="{%url 'store' %}"><img src="{% static 'store/img/footer-logo.png' %}" alt=""></a>
+                        </div>
+                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <a href="{%url 'store' %}"><img src="{% static 'store/img/payment.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Shopping</h6>
+                        <ul>
+                            <li><a href="{%url 'store' %}">Clothing Store</a></li>
+                            <li><a href="{%url 'store' %}">Trending Shoes</a></li>
+                            <li><a href="{%url 'store' %}">Accessories</a></li>
+                            <li><a href="{%url 'store' %}">Sale</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Support</h6>
+                        <ul>
+                            <li><a href="{%url 'store' %}">Contact Us</a></li>
+                            <li><a href="{%url 'store' %}">Payment Methods</a></li>
+                            <li><a href="{%url 'store' %}">Delivery</a></li>
+                            <li><a href="{%url 'store' %}">Return & Exchanges</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Newsletter</h6>
+                        <div class="footer__newsletter">
+                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                            <form action="{%url 'store' %}">
+                                <input type="email" placeholder="Your email">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright © <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here...">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- JS Plugins -->
+    <script src="{% static 'store/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'store/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'store/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'store/js/mixitup.min.js' %}"></script>
+    <script src="{% static 'store/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'store/js/main.js' %}"></script>
+</body>
+
+</html>

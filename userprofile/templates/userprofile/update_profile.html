@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Editing details</h1>
+
+    <form action="{% url 'update-pro' %}" method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">name</label>
+        <input type="text"  name="name" required value="{{ user.get_full_name }}">
+        <label for="name">Email</label>
+        <input type="text" name="email" required value="{{ user.email }}">
+        <label for="phone">phone</label>
+        <input type="text" name="phone" value="{{ user.phone }}">
+        <label for="dob">date of birth</label>
+        <input type="date" name="dob" value ="{{ user.dob }}" >
+        <label for="name">Gender</label>
+        <select name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        </select>
+        <label for="image">Image</label>
+        <input type="file" src="{{ user.img }}" name="image" alt="userprofile" width="48" height="48">
+        <button type="submit">save</button>
+    </form>
+
+    </form>
+
+
+</body>
+</html>

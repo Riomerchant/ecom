@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login_form/css/style.css' %}">
+
+</head>
+<body>
+  <div class="container">
+    <!-- Left: Image -->
+    <div class="left-side">
+      <img src="{% static 'login_form/images/login_img.png' %}" style="margin-top: 56px;
+    margin-left: 60px;
+    width: 85%;
+    height: 90%;
+    object-fit: contain;" alt="Login background">
+    </div>
+    <!-- Right: Form -->
+    <div class="right-side" style="background: white;">
+      <div class="form-box" style="width: 99%;
+          margin-right: 60px;
+    /* padding-top: 1px; */
+    height: 400px;
+	width: 400px;
+    max-width: 800px;
+    background: #4803ff47;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+        <h2> Join Us </h2>
+         <form action="{% url 'signup' %}" method="post">
+			{% csrf_token %}
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up" style="height: 305px;">
+				<div class="form-wrapper align-items-center" style="position: relative; top: 10px;">
+					<div class="form sign-up">
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" id="username" name="username" placeholder="username" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" id="name" name = "name" placeholder="name" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bx-mail-send'></i>
+							<input type="email" id = 'email' name="email" placeholder="Email" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" id = 'password' name="password"  placeholder="Password" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" id = 'con_password' name="con_password" placeholder="Confirm password" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<select name="role" >
+        					<option value="Buter">Buyer</option>
+        					<option value="Seller">Seller</option>
+        				</select>
+						</div>
+
+						<button>
+							Sign up
+						</button>
+						<p>
+							<span>
+								Already have an account?
+							</span>
+							<a href="{% url 'signin' %}">
+							<b class="pointer">
+								Sign in here
+							</b>
+							</a>
+						</p>
+					</div>
+				</div>
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up">
+				
+				</div>
+			</div>
+		</div>
+	</form>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

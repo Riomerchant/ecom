@@ -1,0 +1,6 @@
+{% autoescape off %}
+    Welcome to Eshope
+    Hello {{ name }}
+    Please confirm you email by clicking on the following link.
+    confirmation Link: https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    {% endautoescape %}

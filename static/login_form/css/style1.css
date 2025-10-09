@@ -1,0 +1,162 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: #f5f7fa;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Row with columns */
+.row {
+  display: flex;
+  width: 80%;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Column */
+.col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+/* Form wrapper */
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form {
+  width: 100%;
+}
+
+.form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Input group */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+.input-group input:focus {
+  border-color: #4e73df;
+  background: #fff;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 0.9rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #4e73df;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #3757c5;
+}
+
+/* Paragraph text */
+.form p {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form p span {
+  margin-right: 0.3rem;
+}
+
+.form p b {
+  color: #4e73df;
+  cursor: pointer;
+}
+
+/* Right side (image + text) */
+.img.sign-up {
+  width: 100%;
+  height: 250px;
+  background: url('../images/signup-bg.jpg') no-repeat center center/cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.text.sign-up {
+  text-align: center;
+}
+
+.text.sign-up h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .col {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .img.sign-up {
+    height: 180px;
+  }
+}

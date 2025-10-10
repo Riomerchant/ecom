@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes,force_str
 from django.core.mail import EmailMessage
+from store.models import Seller
 from .tokens import generate_tokens
 # Create your views here.
 def signup(request):
@@ -28,14 +29,18 @@ def signup(request):
             messages.error(request, "Username already taken")
             return render(request, 'login_form/signup.html')
         
-        myuser = UserProfile.objects.create_user(username=username, email=email,password=password)
+        
         # myuser.password = password
-        if role == "Seller":
-            myuser.is_vendor = True
+        
+        myuser = UserProfile.objects.create_user(username=username, email=email,password=password)
         myuser.first_name=name
         myuser.is_active=True
-
+        if role=='Seller':
+            myuser.is_staff=True
+            myuser.is_vendor=True
+            Seller.objects.create(user=myuser)
         myuser.save()
+
         messages.success(request,"user successfully created")
 
         # sending confirmation  mail

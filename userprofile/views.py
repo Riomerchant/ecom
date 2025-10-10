@@ -8,10 +8,12 @@ def profile(request):
    user = UserProfile.objects.filter(id = request.user.id)
    wishitem = WishlistItem.objects.filter(id = request.user.id)
    cartitem = CartItem.objects.filter(id = request.user.id)
+   addresses = AddressD.objects.filter(user=user)
+   print(addresses)
    wish = wishitem.count()
    cart = cartitem.count()
 #    print(user[0].img.url)
-   return render(request,'userprofile/profile.html',{'user':user[0],'wish':wish,'cart':cart})
+   return render(request,'userprofile/profile.html',{'user':user[0],'wish':wish,'cart':cart,'addresses':addresses})
 
 def update_profile(request):
     myuser = UserProfile.objects.get(username = request.user.username)
@@ -56,27 +58,34 @@ def update_profile(request):
     return render(request,'userprofile/update_profile.html', {'user':myuser})
 
 def add_address(request):
-    if request.method=="POST":
-        name = request.POST['name']
-        hno = request.POST['hno']
-        stno = request.POST['stno']
-        city = request.POST['city']
-        state = request.POST['state']
-        country = request.POST['country']
-        zipcode = request.POST['zipcode']
-        phone = request.POST['phone']
-        address = AddressD.objects.create(user=request.user)
-        address.Title = name
-        address.flatno = hno
-        address.street=stno
-        address.city=city
-        address.state=state
-        address.country = country
-        address.pincode = zipcode
-        if phone:
-            address.user.phone = phone
-        else:
-            pass
+    user = UserProfile.objects.filter(username=request.user.username).first()
+    print(user)
+    if request.method == "POST":
+        # Get form data
+        name = request.POST.get('name', '').strip()
+        hno = request.POST.get('hno', '').strip()
+        stno = request.POST.get('stno', '').strip()
+        city = request.POST.get('city', '').strip()
+        state = request.POST.get('state', '').strip()
+        country = request.POST.get('country', '').strip()
+        zipcode = request.POST.get('zipcode', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        
+        # Create and populate address
+        address = AddressD.objects.create(
+            user=user,
+            Title=name,
+            flatno=hno,
+            street=stno,
+            city=city,
+            state=state,
+            country=country,
+            pincode=zipcode
+        )
         address.save()
+        if phone:
+            request.user.phone = phone
+            request.user.save()
         return redirect('checkout')
-    return render(request,'store/address_form.html')
+    
+    return render(request, 'store/address_form.html')

@@ -1,12 +1,20 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import stripe
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponseRedirect
-from .models import Products,Category,CartItem,WishlistItem
+from .models import Products,Category,CartItem,WishlistItem, Seller
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib import messages
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from userprofile.models import Orders,AddressD
-
+# from .models import Seller
+from userprofile.models import UserProfile
 
 # Create your views here.
 def home(request):
+    print(request.user.is_vendor)
     prod = Products.objects.all()
     context ={
         'products':prod
@@ -48,7 +56,7 @@ def checkout(request):
     cartitem = CartItem.objects.filter(user= request.user)
     total_price  = sum(item.product.price*item.quantity for item in cartitem)
     # order = Orders.objects.filter(user = request.user )
-    Address  = AddressD.objects.filter(user = request.user).first()
+    Address  = AddressD.objects.filter(user = request.user)
     context={"cartitem":cartitem, 'total':total_price,'address':Address}
     print(Address)
     return render(request,'store/checkout.html',context)
@@ -188,6 +196,74 @@ def prfl(request,ran):
     product = Products.objects.filter(price__range=(rb[0],rb[1]))
     # print(product[0].title)
     return render(request,'store/category_details.html',{'products': product,'categories':Category.objects.all()})
+
+
+def seller_pro(request):
+        
+        if request.user.is_vendor:
+            try:
+                seller = Seller.objects.get(user=request.user)
+                print(seller)
+            except Seller.DoesNotExist:
+                return redirect("store")
+            products = Products.objects.filter(seller=seller)
+            # print()
+            print(seller.user.id)
+            print(seller.user.is_authenticated)
+            context = { 
+                "user": seller,
+                "products": products,
+            }
+            return render(request, "store/profile_ven.html", context)
+        return redirect("store")
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+def create_checkout_session(request):
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[
+            {
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': 'Your Product Name',
+                    },
+                    'unit_amount': 2000,  # price in cents
+                },
+                'quantity': 1,
+            },
+        ],
+        mode='payment',
+        success_url='https://your-domain.com/success/',
+        cancel_url='https://your-domain.com/cancel/',
+    )
+    return JsonResponse({'id': checkout_session.id})
+
+
+
+
+
+
+@csrf_exempt
+def webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_ENDPOINT_SECRET
+        )
+    except ValueError as e:
+        return JsonResponse({'error': 'Invalid payload'}, status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return JsonResponse({'error': 'Invalid signature'}, status=400)
+    # Handle the event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        # Fulfill the purchase...
+    return JsonResponse({'status': 'success'})
+
 
 
 

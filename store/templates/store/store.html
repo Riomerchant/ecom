@@ -64,9 +64,14 @@
                         <a href="#" class="search-switch"><img src="{% static 'store/img/icon/search.png' %}" alt=""></a>
                         <a href="{% url 'wish' %}"><img src="{% static 'store/img/icon/heart.png' %}" alt=""></a>
                         {% if user.is_authenticated %}
-                        <!-- <div class="price">register</div> -->
                         <a href="{% url 'cart' %}"><img src="{% static 'store/img/icon/cart.png' %}" alt=""> <span>0</span></a>
+                        {% if user.is_vendor %}
+                        <!-- <div class="price">register</div> -->
                         <a href="{% url 'profile' %}"><div class="price">{{ user.username }}</div></a>
+                        <!-- <a href="{% url 'seller-pro' %}"><div class="price">{{ user.username }}</div></a> -->
+                         <!-- {% else %} -->
+                        <a href="{% url 'profile' %}"><div class="price">{{ user.username }}</div></a>
+                        <!-- {% endif %} -->
                         {% else %}
                         <a href="{% url 'signin' %}"><span>signin/register</span></a>
                         {% endif %}

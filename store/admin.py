@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Products, CartItem, WishlistItem
+from .models import Category, Products, CartItem, WishlistItem,Seller
 
 @admin.register(Products)
 class ProductAdmin(admin.ModelAdmin):
@@ -22,3 +22,5 @@ class CartItemAdmin(admin.ModelAdmin):
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ('user', 'product')
     list_filter = ('user',)
+
+admin.site.register(Seller)

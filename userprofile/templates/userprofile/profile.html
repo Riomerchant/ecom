@@ -334,6 +334,20 @@
                 gap: 20px;
             }
         }
+        
+        .logout-btn {
+            background-color: #e74c3c;
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
 
     </style>
 </head>
@@ -403,6 +417,12 @@
                         </div>
                     </div>
                 </div>
+                {% if user.is_vendor %}
+                <a href="{% url 'seller-pro' %}" style="left: 1200px;position: relative; bottom: 50px;" class="logout-btn">Shop</a>
+                <a href="{% url 'logout' %}" style="left: 1131px;position: relative;"class="logout-btn">Logout</a> 
+                {% else %}
+                <a href="{% url 'logout' %}" style="left: 1131px;position: relative;"class="logout-btn">Logout</a> 
+                {% endif %}
             </div>
         </div>
     </section>
@@ -477,22 +497,17 @@
             <!-- Saved Addresses -->
             <div class="profile-section">
                 <h2 class="section-title">Saved Addresses</h2>
+                {% for address in addresses %}
                 <div class="address-card">
-                    <div class="address-type">Home</div>
+                    <div class="address-type">{{ address.Title }}</div>
                     <div class="address-text">
-                        123 Fashion Street, MP Nagar<br>
-                        Bhopal, Madhya Pradesh 462011<br>
-                        India
+                        {{ address.get_address }}
+                        <span>No Addess</span>
+                        {% empty %}
+                        <a href="{% url 'add-address' %}" style="left: 191px;top: 266px;position: relative;" class="logout-btn"> Add Address</a>
                     </div>
                 </div>
-                <div class="address-card">
-                    <div class="address-type">Office</div>
-                    <div class="address-text">
-                        456 Business Park, Zone 2<br>
-                        Bhopal, Madhya Pradesh 462016<br>
-                        India
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Recent Orders -->

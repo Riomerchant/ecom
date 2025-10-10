@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            color: #1a1a1a;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #F2f3EE;
+            color: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f1c40f;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 15px 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 16px;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: #f1c40f;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .add-btn:hover {
+            background-color: #333;
+        }
+
+        /* Stats cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        /* Products */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h4 {
+            font-size: 18px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .product-card .price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .product-card .category {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .product-actions {
+            margin-top: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-edit {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+            margin-left: 8px;
+        }
+
+        .btn-edit:hover {
+            background-color: #333;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <h2>Seller Panel</h2>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+            </ul>
+        </div>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome, {{ user.user.username }}</h1>
+            
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Products</h3>
+                <p>{{ products|length }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <p>24</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <p>₹12,540</p>
+            </div>
+            <!-- <div class="stat-card">
+                <h3>Pending Orders</h3>
+                <p>3</p>
+            </div> -->
+        </div>
+
+        <!-- Products Grid -->
+        <h2 style="margin-bottom: 15px;">Your Products</h2>
+        <div class="product-grid" style="display: flex;">
+            {% for item in products %}
+            <a href="{% url 'product_detail' item.slug %}" style="text-decoration-line: none;">
+            <div class="product-card">
+                {% if item.img %}
+                <img src="{{ item.img.url }}" alt="{{ item.title }}">
+                <h4>{{ item.title }}</h4>
+                <p class="price">₹{{ item.price }}</p>
+                <p class="category">{{ item.category.title }}</p>
+                <div class="product-actions">
+                </div>
+            </div></a>
+                    {% else %}
+                    <p>No products found.</p>
+                    {% endif %}
+                    {% endfor %}
+    </div>
+</body>
+</html>

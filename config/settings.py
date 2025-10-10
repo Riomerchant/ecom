@@ -145,3 +145,30 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "unaybhatia@gmail.com"
 EMAIL_HOST_PASSWORD = "kfyg wvpi wlwo sztk"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+import logging.config
+log_dir = "logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(log_dir, 'app.log'),
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

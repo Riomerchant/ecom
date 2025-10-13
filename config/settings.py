@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'login_form',
     'store',
     'phonenumber_field',
+    
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "unaybhatia@gmail.com"
 EMAIL_HOST_PASSWORD = "kfyg wvpi wlwo sztk"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+

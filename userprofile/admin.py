@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import UserProfile
+from .models import *
 
 class CustomUserAdmin(UserAdmin):
     model = UserProfile
@@ -26,3 +26,5 @@ class CustomUserAdmin(UserAdmin):
     readonly_fields = ['date_joined', 'last_login']
 
 admin.site.register(UserProfile, CustomUserAdmin)
+admin.site.register(Orders)
+admin.site.register(AddressD)

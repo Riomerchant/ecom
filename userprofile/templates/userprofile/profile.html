@@ -401,6 +401,7 @@
                             <a href="{% url 'profile' %}">Home</a>
                             <span>Profile</span>
                         </div>
+                                    <a href="{% url 'logout' %}">logout</a>
                     </div>
                 </div>
             </div>
@@ -477,26 +478,22 @@
             <!-- Saved Addresses -->
             <div class="profile-section">
                 <h2 class="section-title">Saved Addresses</h2>
+                {% for address in addresses %}
                 <div class="address-card">
-                    <div class="address-type">Home</div>
+                    <div class="address-type">{{ address.title }}</div>
                     <div class="address-text">
-                        123 Fashion Street, MP Nagar<br>
-                        Bhopal, Madhya Pradesh 462011<br>
-                        India
+                        {{address.get_address}}
+                        {% empty %}
+                        <a href="add-address">add address</a>
                     </div>
-                </div>
-                <div class="address-card">
-                    <div class="address-type">Office</div>
-                    <div class="address-text">
-                        456 Business Park, Zone 2<br>
-                        Bhopal, Madhya Pradesh 462016<br>
-                        India
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
+
+
             <!-- Recent Orders -->
-            <div class="profile-section full-width">
+            <!-- <div class="profile-section full-width">
                 <h2 class="section-title">Recent Orders</h2>
                 <div class="order-item">
                     <div class="order-header">
@@ -506,23 +503,7 @@
                     <div class="order-date">Placed on October 1, 2025</div>
                     <div class="order-total">Total: ₹4,599</div>
                 </div>
-                <div class="order-item">
-                    <div class="order-header">
-                        <span class="order-id">Order #MF2025002</span>
-                        <span class="order-status">In Transit</span>
-                    </div>
-                    <div class="order-date">Placed on October 5, 2025</div>
-                    <div class="order-total">Total: ₹6,299</div>
-                </div>
-                <div class="order-item">
-                    <div class="order-header">
-                        <span class="order-id">Order #MF2025003</span>
-                        <span class="order-status">Processing</span>
-                    </div>
-                    <div class="order-date">Placed on October 6, 2025</div>
-                    <div class="order-total">Total: ₹3,899</div>
-                </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

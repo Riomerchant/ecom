@@ -26,7 +26,8 @@ urlpatterns = [
     path('', lambda request: redirect('store')),
     path('',include('login_form.urls')),
     path('store/', include('store.urls')),
-    path('profile/',include('userprofile.urls'))
+    path('profile/',include('userprofile.urls')),
+    path('payment/',include('store.urls'))
     # path('<slug:slug>/', product_view.category_details, name='shop-details'),
     # path('<slug:slug>/<slug:slug>',product_view.product_detail,name ='product_detail')
 

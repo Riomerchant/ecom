@@ -30,6 +30,7 @@ def signup(request):
         
         myuser = UserProfile.objects.create_user(username=username, email=email,password=password)
         # myuser.password = password
+        # myuser.first_name = name
         if role == "Seller":
             myuser.is_vendor = True
         myuser.first_name=name

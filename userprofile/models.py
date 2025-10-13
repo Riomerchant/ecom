@@ -100,7 +100,7 @@ class Orders(models.Model):
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 

@@ -190,5 +190,87 @@ def prfl(request,ran):
     return render(request,'store/category_details.html',{'products': product,'categories':Category.objects.all()})
 
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import stripe
+from django.conf import settings
 
+def create_checkout_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    YOUR_DOMAIN = "http://127.0.0.1:8000"
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price  = sum(item.product.price*item.quantity for item in cart_items)*100
+    gst = int(total_price*(18/100))
+    total = total_price+gst
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'inr',
+                'product_data': {'name': 'Order Payment'},
+                'unit_amount': total,
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=YOUR_DOMAIN + '/payment/success/',
+        cancel_url=YOUR_DOMAIN + '/payment/cancel/',
+    )
+    return redirect(checkout_session.url, code=303)
+
+
+
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+# @csrf_exempt
+# def stripe_webhook(request):
+#     payload = request.body
+#     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+#     event = None
+
+#     try:
+#         event = stripe.Webhook.construct_event(
+#             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+#         )
+#     except stripe.error.SignatureVerificationError:
+#         return JsonResponse({'error': 'Invalid signature'}, status=400)
+
+#     # ✅ When payment is successful
+#     if event['type'] == 'checkout.session.completed':
+#         session = event['data']['object']
+
+#         user_id = session['metadata'].get('user_id')
+#         address_id = session['metadata'].get('address_id')
+#         total_amount = session['metadata'].get('total_amount')
+#         payment_id = session['payment_intent']
+
+#         # Fetch user and address
+#         buyer = UserProfile.objects.get(id=user_id)
+#         address = AddressD.objects.get(id=address_id)
+
+#         # If your seller is known (e.g., product owner), you can set it dynamically
+#         # For now, set it to None or buyer for testing
+#         Orders.objects.create(
+#             buyer=buyer,
+#             seller=buyer,  # or assign actual seller
+#             address=address,
+#             total_amount=total_amount,
+#             payment_id=payment_id,
+#             status="Confirmed"
+#         )
+
+#     return JsonResponse({'status': 'success'})
+
+
+def payment_success(request):
+    adress = AddressD.objects.create(user=request.user,Title="Home",flatno="239/5",street='neear soni temple',city='Ajmer',state='Rajasthan',country='India',pincode=305001)
+    order = Orders.objects.create(buyer=request.user,seller=request.user,address=adress)
+    print(order)
+    return render(request, 'store/payment_success.html')
+
+def payment_cancel(request):
+    return render(request, 'store/payment_failed.html')
 # Loggers 

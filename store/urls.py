@@ -32,7 +32,10 @@ urlpatterns = [
     # path('/search/',views.search,name='search'),
     path('<slug:slug>/search/',views.search,name='search'),
     path('filter/<str:ran>/', views.prfl,name="price-filter"),
-    path('checkout/', views.checkout,name='Buy')
+    path('checkout/', views.checkout,name='Buy'),
+    path('checkout/create_checkout_session/', views.create_checkout_session, name='create_checkout_session'),
+    path('success/', views.payment_success, name='payment_success'),
+    path('cancel/', views.payment_cancel, name='payment_cancel')
     # path('profile/',view1.profile,name='profile')
     # path()
     # path('shop-details/<slug:slug>/', views.product_detail, name='product_detail'),

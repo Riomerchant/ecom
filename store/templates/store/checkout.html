@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart_extras %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -228,7 +229,7 @@
                                 <ul class="checkout__total__all">
                                     <li>Subtotal <span>{{ total }}</span></li>
                                     <li>GST <span>18%</span></li>
-                                    <li>Total <span>$750.99</span></li>
+                                    <li>Total <span>{{ total|tot:18 }}</span></li>
                                 </ul>
 
                                 
@@ -246,11 +247,11 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div> -->
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <a href="create_checkout_session"><button type="submit" class="site-btn">PLACE ORDER</button></a>
                             </div>
                         </div>
                     </div>
-                    <div class="profile-section">
+                    <!-- <div class="profile-section">
                             <h2 class="section-title">Saved Addresses</h2>
                             {% for addres in address.address %}
                             {% if address %}
@@ -263,7 +264,7 @@
                             {% endif %}
                             {% endfor %}
                             <a href="{% url 'add-address' %}"><button type="submit" class="site-btn">ADD Address</button></a>
-                        </div>  
+                        </div>   -->
             </div>
         </div>
 

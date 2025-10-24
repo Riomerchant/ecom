@@ -148,4 +148,4 @@ EMAIL_HOST_PASSWORD = "kfyg wvpi wlwo sztk"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-
+ 

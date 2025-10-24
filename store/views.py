@@ -266,9 +266,13 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def payment_success(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price  = sum(item.product.price*item.quantity for item in cart_items)*100
+    intent = stripe.PaymentIntent.create(amount=total_price,currency="inr",metadata={"user_id": str(request.user.id)})
     adress = AddressD.objects.create(user=request.user,Title="Home",flatno="239/5",street='neear soni temple',city='Ajmer',state='Rajasthan',country='India',pincode=305001)
-    order = Orders.objects.create(buyer=request.user,seller=request.user,address=adress)
-    print(order)
+    t_id  = intent.id
+    order = Orders.objects.create(buyer=request.user,seller=request.user,address=adress,Transaction_id = t_id)
+    print(order.Transaction_id)
     return render(request, 'store/payment_success.html')
 
 def payment_cancel(request):

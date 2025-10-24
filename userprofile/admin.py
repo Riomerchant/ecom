@@ -29,4 +29,8 @@ admin.site.register(UserProfile, CustomUserAdmin)
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
     list_display = ('id', 'buyer', 'seller', 'address', 'date_created')
+<<<<<<< HEAD
 admin.site.register(AddressD)
+=======
+admin.site.register(AddressD)
+>>>>>>> 8544a79 (final commit on payment gateway)

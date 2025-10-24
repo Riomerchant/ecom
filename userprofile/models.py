@@ -101,7 +101,7 @@ class Orders(models.Model):
     seller = models.ForeignKey(UserProfile,related_name='orderb',on_delete=models.CASCADE)
     address = models.ForeignKey(AddressD,related_name="address",on_delete=models.CASCADE)
     date_created = models.DateField(auto_now_add=True)
-
+    Transaction_id = models.CharField(max_length=100,default="no")
     def __str__(self):
         return self.id
 

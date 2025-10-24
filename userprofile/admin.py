@@ -26,6 +26,7 @@ class CustomUserAdmin(UserAdmin):
     readonly_fields = ['date_joined', 'last_login']
 
 admin.site.register(UserProfile, CustomUserAdmin)
-# admin.site.register(Seller)
+@admin.register(Orders)
+class OrdersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'buyer', 'seller', 'address', 'date_created')
 admin.site.register(AddressD)
-admin.site.register(Orders)
